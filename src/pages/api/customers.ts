@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { Customer, Customers, ApiError } from '../index';
+import type { Customer, Customers } from '@/types/customer';
+import type { ApiError } from '@/types/common';
 import fsPromises from 'fs/promises';
 import path from 'path';
 
@@ -91,7 +92,7 @@ const handler = async (
       return;
     }
 
-    if (customers.find(customer => customer.email === newCustomer.email)) {
+    if (customers.find((customer: Customer) => customer.email === newCustomer.email)) {
       res.status(409).json({
         code: 'DuplicateResource',
         message: 'A customer with that email already exists',
